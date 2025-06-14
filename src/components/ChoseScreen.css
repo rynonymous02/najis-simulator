@@ -1,0 +1,315 @@
+.chose-screen {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.chose-title {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 20px 0;
+}
+
+.najis-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 10px;
+  flex-grow: 1;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.nav-btn {
+  background-color: #333;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+  padding: 0;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-btn:hover {
+  transform: scale(1.1);
+  background-color: #555;
+}
+
+.najis-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+  flex-grow: 1;
+  max-width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.najis-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: contain;
+  background-color: #EADDCA;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.najis-name {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.najis-description {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  max-width: 250px;
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+  gap: 8px;
+}
+
+.indicator-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot.active {
+  background-color: #333;
+  transform: scale(1.2);
+}
+
+.simulate-button {
+  background-color: #333;
+  color: white;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  margin: 20px 0;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.simulate-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.special-message-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  overflow: visible;
+}
+
+.character-special {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+}
+
+.bubble-container {
+  position: relative;
+  margin-top: -40px;
+  z-index: 2;
+  width: 200px;
+  height: 100px;
+}
+
+.bubble-text {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.bubble-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  font-size: 0.9rem;
+  color: #333;
+  text-align: center;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.return-button {
+  margin-top: 20px;
+  background-color: #333;
+  color: white;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.return-button:hover {
+  transform: scale(1.05);
+  background-color: #555;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  .chose-title {
+    font-size: 1.5rem;
+    margin: 15px 0;
+  }
+  
+  .najis-carousel {
+    padding: 0 5px;
+  }
+  
+  .nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+  
+  .najis-image {
+    width: 120px;
+    height: 120px;
+    border-width: 4px;
+  }
+  
+  .najis-name {
+    font-size: 1.3rem;
+  }
+  
+  .najis-description {
+    font-size: 0.8rem;
+    padding: 0 10px;
+  }
+  
+  .simulate-button {
+    padding: 12px 30px;
+    font-size: 1rem;
+    margin: 15px 0;
+  }
+  
+  .special-message-container {
+    height: 180px;
+  }
+  
+  .character-special {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .bubble-container {
+    width: 180px;
+    height: 90px;
+    margin-top: -30px;
+  }
+  
+  .bubble-message {
+    font-size: 0.8rem;
+  }
+}
+
+/* For smaller mobile screens */
+@media (max-width: 360px) {
+  .najis-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .najis-description {
+    max-width: 200px;
+  }
+  
+  .nav-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  
+  .special-message-container {
+    height: 150px;
+  }
+  
+  .character-special {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .bubble-container {
+    width: 160px;
+    height: 80px;
+    margin-top: -25px;
+  }
+  
+  .bubble-message {
+    font-size: 0.7rem;
+  }
+} 

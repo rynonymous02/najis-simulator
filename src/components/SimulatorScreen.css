@@ -1,0 +1,334 @@
+.simulator-screen {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  position: relative;
+  padding: 20px;
+}
+
+.simulator-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.simulator-header h2 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.najis-status {
+  width: 100%;
+  margin: 15px 0;
+}
+
+.najis-status h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.indicator-label {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  margin-right: 10px;
+}
+
+.indicator-icon-img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  object-fit: contain;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  height: 20px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #333;
+  transition: width 0.5s ease;
+}
+
+.percentage {
+  width: 40px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.najis-display-container {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.najis-simulator-image {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  transition: all 0.5s ease;
+  margin-bottom: -90px;
+}
+
+.cleaning-tip {
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin: -10px 10;
+  width: 100%;
+  text-align: center;
+}
+
+.cleaning-tip p {
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.cleaning-methods {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.cleaning-method-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 30%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cleaning-method-button.full-width-button {
+  width: auto;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  justify-content: center;
+}
+
+.cleaning-method-button.full-width-button:hover {
+  transform: none;
+  background-color: transparent;
+}
+
+.cleaning-method-button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.method-icon-img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;
+  object-fit: contain;
+}
+
+.methodain-icon-img {
+  width: 500px;
+  height: 110px;
+  margin-top: 50px;
+  margin-left: -70px;
+  object-fit: contain;
+}
+
+.method-name {
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.cleaning-message {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e8f5e9;
+  border-radius: 5px;
+  color: #2e7d32;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.cleaning-message.success {
+  background-color: #4CAF50;
+  color: white;
+  animation: pulse 1.5s infinite;
+}
+
+.success-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 1000;
+  animation: fadeIn 0.5s ease;
+}
+
+.success-image {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 15px;
+  object-fit: contain;
+}
+
+.success-popup p {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  .simulator-screen {
+    padding: 15px;
+  }
+  
+  .simulator-header h2 {
+    font-size: 1.3rem;
+    margin-top: 15px;
+  }
+  
+  .najis-status {
+    margin: 10px 0;
+  }
+  
+  .najis-status h3 {
+    font-size: 1rem;
+  }
+  
+  .indicator-label {
+    width: 100px;
+    font-size: 0.9rem;
+  }
+  
+  .indicator-icon-img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .progress-bar {
+    height: 15px;
+  }
+  
+  .najis-display-container {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .najis-simulator-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .cleaning-tip {
+    padding: 8px 12px;
+  }
+  
+  .cleaning-tip p {
+    font-size: 0.8rem;
+  }
+  
+  .method-icon-img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .method-name {
+    font-size: 0.7rem;
+  }
+  
+  .success-popup {
+    width: 80%;
+    max-width: 300px;
+  }
+  
+  .success-image {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .success-popup p {
+    font-size: 1rem;
+  }
+}
+
+/* For smaller mobile screens */
+@media (max-width: 360px) {
+  .najis-simulator-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .indicator-label {
+    width: 90px;
+    font-size: 0.8rem;
+  }
+  
+  .indicator-icon-img {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .method-icon-img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .cleaning-method-button {
+    padding: 8px 5px;
+  }
+  
+  .success-popup {
+    width: 90%;
+  }
+  
+  .success-image {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .success-popup p {
+    font-size: 0.9rem;
+  }
+} 
