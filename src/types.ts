@@ -54,6 +54,7 @@ export interface SimulatorScreenProps {
   najisType: NajisTypeId;
   onBack: () => void;
   onSuccess: () => void;
+  onFailed: () => void;
 }
 
 export interface SuccessScreenProps {

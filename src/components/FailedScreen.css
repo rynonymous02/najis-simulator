@@ -1,0 +1,102 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.failed-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  background-color: #ff0000;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #000;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+.failed-content {
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.failed-image-container {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 4rem;
+  margin-right: 200px;
+  animation: fadeIn 1s ease-out;
+}
+
+.failed-image {
+  width: 150%;
+  height: 150%;
+  object-fit: contain;
+}
+
+.failed-message {
+  text-align: center;
+}
+
+.failed-message h2 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.failed-message p {
+  color: #ffffff;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.retry-button {
+  background-color: #333;
+  color: white;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  margin-bottom: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.retry-button:hover {
+  background-color: #333333;
+  transform: scale(1.05);
+} 

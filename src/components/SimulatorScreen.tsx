@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './SimulatorScreen.css';
 import { SimulatorScreenProps, NajisTypeId, CleaningMethod, NajisData } from '../types';
 
-const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps) => {
+const SimulatorScreen = ({ najisType, onBack, onSuccess, onFailed }: SimulatorScreenProps) => {
   // State for najis properties
   const [physicalForm, setPhysicalForm] = useState(100);
   const [smell, setSmell] = useState(100);
   const [color, setColor] = useState(100);
   const [cleaningMessage, setCleaningMessage] = useState('');
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [isAiniyahClean, setIsAiniyahClean] = useState(false);
+  const [usedTools, setUsedTools] = useState<string[]>([]);
   
   // Define najis types data
   const najisData: Record<NajisTypeId, NajisData> = {
@@ -16,7 +18,6 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       name: 'Najis Mukhofafah',
       description: 'Najis ringan seperti air kencing bayi laki-laki yang belum makan apapun selain ASI.',
       image: '/images/najis-ringan.png',
-      phase2Image: '/images/phase02-low.png',
       placeholder: 'https://via.placeholder.com/200x200/FFEB3B/333333?text=Najis+Mukhofafah',
       color: '#FFEB3B',
       tip: 'Tips: Cukup percikkan air pada area najis hingga bersih'
@@ -25,7 +26,6 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       name: 'Najis Mutawasitho',
       description: 'Najis sedang seperti darah, nanah, kotoran hewan, dan sebagainya.',
       image: '/images/najis-sedang.png',
-      phase2Image: '/images/phase02-med.png',
       placeholder: 'https://via.placeholder.com/200x200/A0522D/FFFFFF?text=Najis+Mutawasitho',
       color: '#A0522D',
       tip: 'Tips: Basuh air sampai hilang sifat bentuk fisik dan baunya'
@@ -34,7 +34,6 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       name: 'Najis Mugholado',
       description: 'Najis berat seperti air liur anjing, babi, dan turunannya.',
       image: '/images/najis-heavy.png',
-      phase2Image: '/images/phase02-high.png',
       placeholder: 'https://via.placeholder.com/200x200/333333/FFFFFF?text=Najis+Mugholado',
       color: '#333333',
       tip: 'Tips: Basuh 7 kali, salah satunya dengan tanah'
@@ -43,7 +42,6 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       name: 'Najis Masyarakat',
       description: 'Najis yang ada di masyarakat seperti korupsi, kolusi, dan nepotisme.',
       image: '/images/tikus-berdasi.png',
-      phase2Image: '/images/phase02-med.png', // Default for masyarakat
       placeholder: 'https://via.placeholder.com/200x200/000000/FFFFFF?text=Najis+Masyarakat',
       color: '#000000',
       tip: 'Tips: Najis ini sulit dibersihkan karena sudah mengakar di masyarakat'
@@ -59,10 +57,10 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
     name: 'Angkat/Buang kotoran yang nampak',
     icon: '/images/bersih-bar.png',
     effectiveness: {
-      mukhofafah: { physical: 100, smell: 0, color: 0 },
-      mutawasitho: { physical: 100, smell: 0, color: 0 },
-      mugholado: { physical: 100, smell: 0, color: 0 },
-      masyarakat: { physical: 100, smell: 0, color: 0 },
+      mukhofafah: { physical: 80, smell: 0, color: 0 },
+      mutawasitho: { physical: 80, smell: 0, color: 0 },
+      mugholado: { physical: 80, smell: 0, color: 0 },
+      masyarakat: { physical: 80, smell: 0, color: 0 },
     }
   };
 
@@ -74,8 +72,8 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       icon: najisType === 'mukhofafah' ? '/images/percikan-icon.png' : '/images/basuhan-icon.png',
       effectiveness: {
         mukhofafah: { physical: 0, smell: 70, color: 70 },
-        mutawasitho: { physical: 0, smell: 40, color: 40 },
-        mugholado: { physical: 0, smell: 20, color: 20 },
+        mutawasitho: { physical: 0, smell: 10, color: 40 },
+        mugholado: { physical: 0, smell: 10, color: 20 },
         masyarakat: { physical: 0, smell: 10, color: 10 }
       }
     },
@@ -84,10 +82,10 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       name: 'Sabun',
       icon: '/images/sabun-icon.png',
       effectiveness: {
-        mukhofafah: { physical: 0, smell: 60, color: 60 },
-        mutawasitho: { physical: 0, smell: 50, color: 50 },
-        mugholado: { physical: 0, smell: 30, color: 30 },
-        masyarakat: { physical: 0, smell: 15, color: 15 }
+        mukhofafah: { physical: 0, smell: 60, color: 0 },
+        mutawasitho: { physical: 0, smell: 50, color: 0 },
+        mugholado: { physical: 0, smell: 30, color: 0 },
+        masyarakat: { physical: 0, smell: 15, color: 0 }
       }
     },
     {
@@ -95,33 +93,14 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       name: 'Tanah',
       icon: '/images/tanah-icon.png',
       effectiveness: {
-        mukhofafah: { physical: 0, smell: 20, color: 20 },
-        mutawasitho: { physical: 0, smell: 20, color: 20 },
-        mugholado: { physical: 0, smell: 40, color: 40 },
+        mukhofafah: { physical: 0, smell: 0, color: 0 },
+        mutawasitho: { physical: 0, smell: 0, color: 0 },
+        mugholado: { physical: 0, smell: 10, color: 30 },
         masyarakat: { physical: 0, smell: 1, color: 1 }
       }
     }
   ];
 
-  // Apply cleaning method
-  const applyCleaningMethod = (method: CleaningMethod) => {
-    const effectiveness = method.effectiveness[najisType] || method.effectiveness.mutawasitho;
-    
-    if (method.id === 'remove_physical') {
-      setPhysicalForm(0); // Remove physical form completely
-      setCleaningMessage(`Menggunakan ${method.name}...`);
-    } else {
-      setSmell((prev) => Math.max(0, prev - effectiveness.smell));
-      setColor((prev) => Math.max(0, prev - effectiveness.color));
-      setCleaningMessage(`Menggunakan ${method.name}...`);
-    }
-    
-    // Clear message after 2 seconds
-    setTimeout(() => {
-      setCleaningMessage('');
-    }, 2000);
-  };
-  
   // Check if Ainiyah is clean
   useEffect(() => {
     if (physicalForm === 0 && !isAiniyahClean) {
@@ -136,10 +115,81 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
   // Check if najis is completely clean (Hukmiyah)
   useEffect(() => {
     if (isAiniyahClean && smell === 0 && color === 0) {
-      onSuccess(); // Call onSuccess prop to navigate to SuccessScreen
+      // Check for mugholado failure condition
+      if (najisType === 'mugholado' && !usedTools.includes('earth')) {
+        onFailed();
+        return;
+      }
+      
+      setShowSuccessPopup(true);
+      setCleaningMessage('Kerja Bagus, Najis Sudah di Netralkan');
+      onSuccess();
     }
-  }, [isAiniyahClean, smell, color, onSuccess]);
+  }, [isAiniyahClean, smell, color, najisType, usedTools, onSuccess, onFailed]);
   
+  // Apply cleaning method
+  const applyCleaningMethod = (method: CleaningMethod) => {
+    const effectiveness = method.effectiveness[najisType] || method.effectiveness.mutawasitho;
+    
+    // Check for failure conditions
+    if (method.id === 'soap' && color > 0) {
+      onFailed();
+      return;
+    }
+
+    if (najisType === 'mutawasitho' && method.id === 'earth') {
+      onFailed();
+      return;
+    }
+
+    if (najisType === 'mukhofafah' && (method.id === 'earth' || method.id === 'soap')) {
+      onFailed();
+      return;
+    }
+
+    if (najisType === 'mugholado' && color === 0 && smell === 0 && !usedTools.includes('earth')) {
+      onFailed();
+      return;
+    }
+
+    // Add tool to used tools
+    setUsedTools(prev => [...prev, method.id]);
+    
+    if (method.id === 'remove_physical') {
+      setPhysicalForm(prev => Math.max(0, prev - effectiveness.physical));
+      setIsAiniyahClean(physicalForm <= effectiveness.physical);
+    } else if (method.id === 'water') {
+      setSmell(prev => Math.max(0, prev - effectiveness.smell));
+      setColor(prev => Math.max(0, prev - effectiveness.color));
+    } else if (method.id === 'soap') {
+      setSmell(prev => Math.max(0, prev - effectiveness.smell));
+      setColor(prev => Math.max(0, prev - effectiveness.color));
+    } else if (method.id === 'earth') {
+      setColor(prev => Math.max(0, prev - effectiveness.color));
+    }
+    
+    setCleaningMessage(`Menggunakan ${method.name}...`);
+    
+    // Clear message after 2 seconds
+    setTimeout(() => {
+      setCleaningMessage('');
+    }, 2000);
+  };
+  
+  // Get phase 2 image based on najis type
+  const getPhase2Image = () => {
+    switch (najisType) {
+      case 'mukhofafah':
+        return '/images/phase02-low.png';
+      case 'mugholado':
+        return '/images/phase02-high.png';
+      case 'mutawasitho':
+        return '/images/phase02-med.png';
+      default:
+        return '/images/phase02-med.png';
+    }
+  };
+
   return (
     <div className="screen simulator-screen">
       <button className="back-button" onClick={onBack}>
@@ -206,7 +256,7 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       
       <div className="najis-display-container">
         <img 
-          src={isAiniyahClean ? currentNajis.phase2Image : currentNajis.image} 
+          src={isAiniyahClean ? getPhase2Image() : currentNajis.image} 
           alt={currentNajis.name}
           className="najis-simulator-image"
           onError={(e) => {
@@ -248,8 +298,15 @@ const SimulatorScreen = ({ najisType, onBack, onSuccess }: SimulatorScreenProps)
       </div>
       
       {cleaningMessage && (
-        <div className={`cleaning-message ${physicalForm === 0 && smell === 0 && color === 0 ? 'success' : ''}`}>
+        <div className={`cleaning-message ${showSuccessPopup ? 'success' : ''}`}>
           {cleaningMessage}
+        </div>
+      )}
+      
+      {showSuccessPopup && (
+        <div className="success-popup">
+          <img src="/images/character-thumbup.png" alt="Success" className="success-image" />
+          <p>Kerja Bagus, Najis Sudah di Netralkan</p>
         </div>
       )}
     </div>

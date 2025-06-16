@@ -108,7 +108,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .cleaning-method-button {
@@ -291,6 +291,23 @@
   .success-popup p {
     font-size: 1rem;
   }
+
+  .methodain-icon-img {
+    margin-bottom: 10px;
+    margin-left: -70px;
+  }
+
+  .cleaning-methods {
+    margin-top: 360px;
+  }
+
+  .najis-simulator-image {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    transition: all 0.5s ease;
+    margin-bottom: -390px;
+  }
 }
 
 /* For smaller mobile screens */
@@ -317,6 +334,7 @@
   
   .cleaning-method-button {
     padding: 8px 5px;
+    
   }
   
   .success-popup {
@@ -331,4 +349,43 @@
   .success-popup p {
     font-size: 0.9rem;
   }
-} 
+
+  .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #000;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  .back-icon {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+  } 
+
+  .methodain-icon-img {
+    margin-bottom: 10px;
+    margin-left: -70px;
+  }
+
+  .cleaning-methods {
+    margin-top: 360px;
+  }
+
+  .najis-simulator-image {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    transition: all 0.5s ease;
+    margin-bottom: -390px;
+  }
+}
